@@ -9,20 +9,26 @@ namespace RefrigeratorSaraFarkash
     internal class CItem
     {
 
-        private int idItem;
+        private static int countObj = 0;
+        private int id;
 
-        public int IdItem
+        public int Id
         {
-            get { return idItem; }
-            set { idItem = value; }
+            get { return id; }
+            set
+            {
+
+                id = value;
+
+            }
         }
 
-        private string nameItem;
+        private string name;
 
-        public string NameItem
+        public string Name
         {
-            get { return nameItem; }
-            set { nameItem = value; }
+            get { return name; }
+            set { name = value; }
         }
 
         private int idShelf;
@@ -41,12 +47,19 @@ namespace RefrigeratorSaraFarkash
             set { typeI = value; }
         }
 
-        private string kashroo;
+        private string kashroot;
 
-        public string Kashroo
+        public string Kashroot
         {
-            get { return kashroo; }
-            set { kashroo = value; }
+            get { return kashroot; }
+            set
+            {
+                if (value != "dairy" && value != "fur" && value != "meaty")
+                {
+                    throw new ArgumentException("Invalid value for Kashroot.");
+                }
+                kashroot = value;
+            }
         }
         private DateTime expiryDate;
 
@@ -66,7 +79,7 @@ namespace RefrigeratorSaraFarkash
 
         public override string ToString()
         {
-            return $"idItem: {idItem}, kashroo: {kashroo},expiryDate:{expiryDate},takeSpace:{takeSpace}";
+            return $"idItem: {id}, kashroo: {kashroot},expiryDate:{expiryDate},takeSpace:{takeSpace}";
         }
     }
 }
