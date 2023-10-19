@@ -20,7 +20,6 @@ namespace RefrigeratorSaraFarkash
                 id = countObj++;
             }
         }
-
         private string name;
 
         public string Name
