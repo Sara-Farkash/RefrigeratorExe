@@ -109,7 +109,7 @@ namespace RefrigeratorSaraFarkash
         {
 
             if (this.spaceLeftInRefrigerator() < item1.TakeSpace)
-                Console.WriteLine("there is no space!!!");///אני צריכה לזרוק שגיאה אין מקום!!!
+                Console.WriteLine("there is no space!!!");
             else
             {
                 for (int i = 0; i < this.numberOfShelves; i++)
@@ -141,7 +141,6 @@ namespace RefrigeratorSaraFarkash
                     return removeItem;
                 }
             }
-            //זריקת שגיאה לא נמצא הפריט המבוקש
             if (removeItem == null)
                 Console.WriteLine("the item not found!!!");
             return removeItem;
@@ -199,8 +198,9 @@ namespace RefrigeratorSaraFarkash
             return allItems.OrderBy(item => item.ExpiryDate).ToList();
         }
         //1
-        //פונקציה שמקבלת תאריך ומחזירה מערך עם כל האוכל המחוק עד התאריך
-        public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
+        //
+//A function that receives a date and returns an array with all the food deleted up to the date
+public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
         {
             List<CItem> RemoveItem = new List<CItem>();
             DateTime lastDate = DateTime.Today;
@@ -212,9 +212,7 @@ namespace RefrigeratorSaraFarkash
                 {
                     if (item.ExpiryDate <= lastDate && KashrootItem == item.Kashroot)
                     {
-                        itemsToRemove.Add(item);
-                        //   RemoveItem.Add(removeItem(item.Id));
-                    }
+                        itemsToRemove.Add(item);                    }
                 }
                 foreach (CItem itemToRemove in itemsToRemove)
                 {
@@ -268,7 +266,7 @@ namespace RefrigeratorSaraFarkash
                 }
                 if (!this.ThereIsPlacefor20() && flag == 3)
                 {
-                    //דחפנו בחזרה למערךאת כל המוצרים
+                    //We pushed all the products back into the array
                     Console.WriteLine("This is not the time to shop today!!!!");
                     this.addListItem(ChalviRemove);
                     this.addListItem(BashariRemove);

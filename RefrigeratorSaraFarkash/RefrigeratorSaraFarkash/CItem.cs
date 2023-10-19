@@ -17,12 +17,9 @@ namespace RefrigeratorSaraFarkash
             get { return id; }
             set
             {
-
-                id = value;
-
+                id = countObj++;
             }
         }
-
         private string name;
 
         public string Name
