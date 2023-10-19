@@ -17,9 +17,7 @@ namespace RefrigeratorSaraFarkash
             get { return id; }
             set
             {
-
-                id = value;
-
+                id = countObj++;
             }
         }
 
