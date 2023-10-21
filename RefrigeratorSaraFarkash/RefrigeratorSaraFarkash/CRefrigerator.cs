@@ -26,10 +26,11 @@ namespace RefrigeratorSaraFarkash
         {
             get { return model; }
             set {
-                if (value>=0)
+                if (value >= 0)
                     model = value;
                 else
-                    throw new ArithmeticException("Illegal model, model must be contain int");
+                    Console.WriteLine(("Illegal model, model must be contain int");
+               //     throw new ArithmeticException("Illegal model, model must be contain int");
             }
         }
 
@@ -42,7 +43,8 @@ namespace RefrigeratorSaraFarkash
                 if (!value.Equals(""))
                     color = value;
                 else
-                    throw new ArithmeticException("Illegal color, color must be contain string");
+                    Console.WriteLine("Illegal color, color must be contain string");
+                  //  throw new ArithmeticException("Illegal color, color must be contain string");
             }
         }
         private int numberOfShelves;
@@ -54,7 +56,8 @@ namespace RefrigeratorSaraFarkash
                 if (value >= 0)
                     numberOfShelves = value;
                 else
-                    throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
+                    Console.WriteLine("Illegal numbershelves, numbershelves must be greater or equal zero");
+                    //throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
             }
         }
 
@@ -77,26 +80,23 @@ namespace RefrigeratorSaraFarkash
             }
         }
 
-        public CRefrigerator(int modell, string color)
+        public CRefrigerator()
         {
 
             shelfs = new List<CShelf>();
-            try
-            {
-                Model = modell;
-                Color = color;
+            //try
+            //{
+            //    Model = modell;
+            //    Color = color;
 
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            //}
+            //catch (Exception e)
+            //{
+            //    Console.WriteLine(e.Message);
+            //}
 
         }
-        public CRefrigerator()
-        {
-            
-        }
+ 
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();

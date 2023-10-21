@@ -29,7 +29,8 @@ namespace RefrigeratorSaraFarkash
                 if (!value.Equals(""))
                     name = value;
                 else
-                    throw new ArithmeticException("Illegal name, name must be string");
+                    Console.WriteLine("Illegal name, name must be string");
+                    //throw new ArithmeticException("Illegal name, name must be string");
             }
         }
 
@@ -50,7 +51,8 @@ namespace RefrigeratorSaraFarkash
                 if (value.Equals("food") || value.Equals("Food") || value.Equals("Drink") || value.Equals("drink"))
                     typeI = value;
                 else
-                    throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
+                    Console.WriteLine("Illegal type, type must be food or Food or Drink or drink");
+                    //throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
             }
         }
 
@@ -67,7 +69,8 @@ namespace RefrigeratorSaraFarkash
 
                 }
                 else
-                throw new ArgumentException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
+                    Console.WriteLine("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
+               // throw new ArgumentException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
 
             }
         }
@@ -80,7 +83,8 @@ namespace RefrigeratorSaraFarkash
                     (value > DateTime.Now)
                     expiryDate = value;
                 else
-                    throw new ArithmeticException("Illegal Date, expire date must be after today!");
+                    Console.WriteLine("Illegal Date, expire date must be after today!");
+                   // throw new ArithmeticException("Illegal Date, expire date must be after today!");
 
                  }
         }
@@ -94,28 +98,27 @@ namespace RefrigeratorSaraFarkash
                 if (value >= 0)
                     takeSpace = value;
                 else
-                    throw new ArithmeticException("Illegal space, space must be a postive number!");
+                    Console.WriteLine("Illegal space, space must be a postive number!");
+
+                    //throw new ArithmeticException("Illegal space, space must be a postive number!");
             }
         }
 
-        public CItem(string name, string type,string kashroot,DateTime expiryDate,int takeSpace)
-        {
-            try
-            {
-                Name = name;
-                TypeI = type;
-                Kashroot = kashroot;
-                ExpiryDate = expiryDate;
-                TakeSpace = takeSpace;
-            }catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-        public CItem()
-        {
-            
-        }
+        //public CItem(string name, string type,string kashroot,DateTime expiryDate,double takeSpace)
+        //{
+        //    try
+        //    {
+        //        Name = name;
+        //        TypeI = type;
+        //        Kashroot = kashroot;
+        //        ExpiryDate = expiryDate;
+        //        TakeSpace = takeSpace;
+        //    }catch(Exception e)
+        //    {
+        //        Console.WriteLine(e.Message);
+        //    }
+        //}
+      
         public override string ToString()
         {
             return $"idItem: {id}, kashroo: {kashroot},expiryDate:{expiryDate},takeSpace:{takeSpace}";

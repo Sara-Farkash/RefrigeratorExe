@@ -53,6 +53,7 @@ namespace exeRefreg
         {
             CItem item1 = new CItem();
             item1.ExpiryDate = DateTime.Now;
+            item1.IdShelf = 1;
             item1.Kashroot = "dairy";
             item1.Name = "coffe";
             item1.TakeSpace = 2.4;
@@ -60,33 +61,34 @@ namespace exeRefreg
             CItem item2 = new CItem();
             DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3);
             item2.ExpiryDate = threeMonthsAgo;
+            item2.IdShelf = 1;
             item2.Kashroot = "dairy";
-            item2.Name = "Pizza";
-            item2.TakeSpace = 7.4;
-            item2.TypeI = "food";
+            item2.Name = "coffe";
+            item2.TakeSpace = 2.4;
+            item2.TypeI = "drink";
 
             CRefrigerator refrigerator1 = BuildRefrigerator();
+
 
             refrigerator1.pushToRef(item1);
             refrigerator1.pushToRef(item2);
 
             List<CRefrigerator> arrRefrigerator = new List<CRefrigerator>();
-          
             //part 3
-            Console.WriteLine("Press 1: the program will print all the items on the refrigerator and all its contents.");
-            Console.WriteLine("Click 2: the program will print how much space is left in the fridge");
-            Console.WriteLine("Press 3: The program will allow the user to put an item in the fridge.");
-            Console.WriteLine("Press 4: The program will allow the user to remove an item from the refrigerator.");
-            Console.WriteLine("Press 5: the program will clean the refrigerator and print all the checked items to the user.");
-            Console.WriteLine("Press 6: the program will ask the user What do I want to eat?; and bring the function to bring a product.");
-            Console.WriteLine("Click 7: the program will print all the products sorted by their expiration date.");
-            Console.WriteLine("Press 8: the program will print all the shelves arranged according to the free space left on them.");
-            Console.WriteLine("Press 9: the program will print all the refrigerators arranged according to the free space left in them.");
-            Console.WriteLine("Click 10: The program will prepare the refrigerator for shopping.");
-            Console.WriteLine("Press 100: system shutdown.");
             int flag = 1;
             while (flag == 1)
             {
+                Console.WriteLine("Press 1: the program will print all the items on the refrigerator and all its contents.");
+                Console.WriteLine("Click 2: the program will print how much space is left in the fridge");
+                Console.WriteLine("Press 3: The program will allow the user to put an item in the fridge.");
+                Console.WriteLine("Press 4: The program will allow the user to remove an item from the refrigerator.");
+                Console.WriteLine("Press 5: the program will clean the refrigerator and print all the checked items to the user.");
+                Console.WriteLine("Press 6: the program will ask the user What do I want to eat?; and bring the function to bring a product.");
+                Console.WriteLine("Click 7: the program will print all the products sorted by their expiration date.");
+                Console.WriteLine("Press 8: the program will print all the shelves arranged according to the free space left on them.");
+                Console.WriteLine("Press 9: the program will print all the refrigerators arranged according to the free space left in them.");
+                Console.WriteLine("Click 10: The program will prepare the refrigerator for shopping.");
+                Console.WriteLine("Press 100: system shutdown.");
                 int choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {
@@ -112,6 +114,7 @@ namespace exeRefreg
                         CItem itemWantOut = refrigerator1.removeItem(idToRemove);
                         break;
                     case 5:
+                        //מה זה אומר את כלל הפריטים שנבדקו?
                         refrigerator1.cleanExpired();
                         break;
                     case 6:
@@ -132,7 +135,7 @@ namespace exeRefreg
                         break;
                     case 9:
                         List<CRefrigerator> sortedRef = new List<CRefrigerator>();
-                        sortedRef = SortRefrigeratorsByFreeSpace(arrRefrigerator);
+                        //sortedRef = SortRefrigeratorsByFreeSpace(arrRefrigerator);
                         break;
                     case 10:
                         refrigerator1.beforeShopping();
@@ -141,6 +144,7 @@ namespace exeRefreg
                         flag = 0;
                         break;
                 }
+
 
             }
 
