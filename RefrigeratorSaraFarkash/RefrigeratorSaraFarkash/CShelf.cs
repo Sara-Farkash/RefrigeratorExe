@@ -26,7 +26,12 @@ namespace RefrigeratorSaraFarkash
         public int NumberLevel
         {
             get { return numberLevel; }
-            set { numberLevel = value; }
+            set { 
+                if(value>=0)
+                numberLevel = value;
+                else
+                    throw new ArithmeticException("Illegal floor ,floor must be a positive number");
+            }
         }
 
         private double placeInShelf;
@@ -34,7 +39,12 @@ namespace RefrigeratorSaraFarkash
         public double PlaceInShelf
         {
             get { return placeInShelf; }
-            set { placeInShelf = value; }
+            set { if (value >= 0)
+                    placeInShelf = value;
+            else
+                    throw new ArithmeticException("Illegal placeInShelf ,placeInShelf must be a positive number");
+
+            }
         }
 
         private List<CItem> items;
@@ -54,15 +64,27 @@ namespace RefrigeratorSaraFarkash
                 }
             }
         }
+
         public void AddItem(CItem item)
         {
             items.Add(item);
+        }
+        public CShelf(int numberLevel,double placeInShelfs)
+        {
+            items = new List<CItem>();
+            try
+            {
+                NumberLevel = numberLevel;
+                PlaceInShelf = placeInShelf;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
         public CShelf()
         {
             items = new List<CItem>();
         }
-
         public double spaceLeftInShelfs()
         {
             double spaceleft = 0.0;
