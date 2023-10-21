@@ -25,7 +25,12 @@ namespace RefrigeratorSaraFarkash
         public int Model
         {
             get { return model; }
-            set { model = value; }
+            set {
+                if (value>=0)
+                    model = value;
+                else
+                    throw new ArithmeticException("Illegal model, model must be contain int");
+            }
         }
 
         private string color;
@@ -33,14 +38,24 @@ namespace RefrigeratorSaraFarkash
         public string Color
         {
             get { return color; }
-            set { color = value; }
+            set {
+                if (!value.Equals(""))
+                    color = value;
+                else
+                    throw new ArithmeticException("Illegal color, color must be contain string");
+            }
         }
         private int numberOfShelves;
 
         public int NumberOfShelves
         {
             get { return numberOfShelves; }
-            set { numberOfShelves = value; }
+            set {
+                if (value >= 0)
+                    numberOfShelves = value;
+                else
+                    throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
+            }
         }
 
         private List<CShelf> shelfs;
@@ -61,9 +76,26 @@ namespace RefrigeratorSaraFarkash
                 }
             }
         }
+
+        public CRefrigerator(int modell, string color)
+        {
+
+            shelfs = new List<CShelf>();
+            try
+            {
+                Model = modell;
+                Color = color;
+
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+        }
         public CRefrigerator()
         {
-            shelfs = new List<CShelf>();
+            
         }
         public override string ToString()
         {

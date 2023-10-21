@@ -25,7 +25,12 @@ namespace RefrigeratorSaraFarkash
         public string Name
         {
             get { return name; }
-            set { name = value; }
+            set {
+                if (!value.Equals(""))
+                    name = value;
+                else
+                    throw new ArithmeticException("Illegal name, name must be string");
+            }
         }
 
         private int idShelf;
@@ -41,7 +46,12 @@ namespace RefrigeratorSaraFarkash
         public string TypeI
         {
             get { return typeI; }
-            set { typeI = value; }
+            set {
+                if (value.Equals("food") || value.Equals("Food") || value.Equals("Drink") || value.Equals("drink"))
+                    typeI = value;
+                else
+                    throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
+            }
         }
 
         private string kashroot;
@@ -51,11 +61,14 @@ namespace RefrigeratorSaraFarkash
             get { return kashroot; }
             set
             {
-                if (value != "dairy" && value != "fur" && value != "meaty")
+                if (value == "dairy" || value == "parve" || value == "meaty")
                 {
-                    throw new ArgumentException("Invalid value for Kashroot.");
+                    kashroot = value;
+
                 }
-                kashroot = value;
+                else
+                throw new ArgumentException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
+
             }
         }
         private DateTime expiryDate;
@@ -63,7 +76,13 @@ namespace RefrigeratorSaraFarkash
         public DateTime ExpiryDate
         {
             get { return expiryDate; }
-            set { expiryDate = value; }
+            set {if
+                    (value > DateTime.Now)
+                    expiryDate = value;
+                else
+                    throw new ArithmeticException("Illegal Date, expire date must be after today!");
+
+                 }
         }
 
         private double takeSpace;
@@ -71,9 +90,32 @@ namespace RefrigeratorSaraFarkash
         public double TakeSpace
         {
             get { return takeSpace; }
-            set { takeSpace = value; }
+            set {
+                if (value >= 0)
+                    takeSpace = value;
+                else
+                    throw new ArithmeticException("Illegal space, space must be a postive number!");
+            }
         }
 
+        public CItem(string name, string type,string kashroot,DateTime expiryDate,int takeSpace)
+        {
+            try
+            {
+                Name = name;
+                TypeI = type;
+                Kashroot = kashroot;
+                ExpiryDate = expiryDate;
+                TakeSpace = takeSpace;
+            }catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        public CItem()
+        {
+            
+        }
         public override string ToString()
         {
             return $"idItem: {id}, kashroo: {kashroot},expiryDate:{expiryDate},takeSpace:{takeSpace}";
