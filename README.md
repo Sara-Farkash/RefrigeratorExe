@@ -1,9 +1,9 @@
-***Refrigerator***
+# **Refrigerator**
+
 This project allows users to use different functions in their refrigerator,
 or in refrigerators
 
-***The project contains 4 departments:***
-
+## The project contains 4 departments:
 -**Program**
 The main department:
 which contains the user interface.
