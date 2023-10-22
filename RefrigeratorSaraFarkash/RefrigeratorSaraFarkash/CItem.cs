@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RefrigeratorSaraFarkash
 {
-    internal class CItem
+    internal class CItem:IComparable<CItem>
     {
 
         private static int countObj = 0;
@@ -15,22 +16,20 @@ namespace RefrigeratorSaraFarkash
         public int Id
         {
             get { return id; }
-            set
-            {
-                id = countObj++;
-            }
+            //set { id = countObj; }
+
         }
         private string name;
 
         public string Name
         {
             get { return name; }
-            set {
+            set
+            {
                 if (!value.Equals(""))
                     name = value;
                 else
-                    Console.WriteLine("Illegal name, name must be string");
-                    //throw new ArithmeticException("Illegal name, name must be string");
+                    throw new ArithmeticException("Illegal name, name must be string");
             }
         }
 
@@ -39,7 +38,13 @@ namespace RefrigeratorSaraFarkash
         public int IdShelf
         {
             get { return idShelf; }
-            set { idShelf = value; }
+            set
+            {
+                if (value >= 0)
+                    idShelf = value;
+                else
+                    throw new ArithmeticException("Illegal idShelf, idShelf must be int");
+            }
         }
 
         private string typeI;
@@ -47,12 +52,12 @@ namespace RefrigeratorSaraFarkash
         public string TypeI
         {
             get { return typeI; }
-            set {
+            set
+            {
                 if (value.Equals("food") || value.Equals("Food") || value.Equals("Drink") || value.Equals("drink"))
                     typeI = value;
                 else
-                    Console.WriteLine("Illegal type, type must be food or Food or Drink or drink");
-                    //throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
+                    throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
             }
         }
 
@@ -66,11 +71,9 @@ namespace RefrigeratorSaraFarkash
                 if (value == "dairy" || value == "parve" || value == "meaty")
                 {
                     kashroot = value;
-
                 }
                 else
-                    Console.WriteLine("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
-               // throw new ArgumentException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
+                    throw new ArithmeticException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
 
             }
         }
@@ -79,49 +82,43 @@ namespace RefrigeratorSaraFarkash
         public DateTime ExpiryDate
         {
             get { return expiryDate; }
-            set {if
-                    (value > DateTime.Now)
+            set
+            {
+                if
+                   (value > DateTime.Now)
                     expiryDate = value;
                 else
-                    Console.WriteLine("Illegal Date, expire date must be after today!");
-                   // throw new ArithmeticException("Illegal Date, expire date must be after today!");
+                    throw new ArithmeticException("Illegal Date, expire date must be after today!");
 
-                 }
-        }
-
-        private double takeSpace;
-
-        public double TakeSpace
-        {
-            get { return takeSpace; }
-            set {
-                if (value >= 0)
-                    takeSpace = value;
-                else
-                    Console.WriteLine("Illegal space, space must be a postive number!");
-
-                    //throw new ArithmeticException("Illegal space, space must be a postive number!");
             }
         }
 
-        //public CItem(string name, string type,string kashroot,DateTime expiryDate,double takeSpace)
-        //{
-        //    try
-        //    {
-        //        Name = name;
-        //        TypeI = type;
-        //        Kashroot = kashroot;
-        //        ExpiryDate = expiryDate;
-        //        TakeSpace = takeSpace;
-        //    }catch(Exception e)
-        //    {
-        //        Console.WriteLine(e.Message);
-        //    }
-        //}
-      
+        private double takeSpace;
+        public double TakeSpace
+        {
+            get { return takeSpace; }
+            set
+            {
+                if (value >= 0)
+                    takeSpace = value;
+                else
+                    throw new ArithmeticException("Illegal space, space must be a postive number!");
+            }
+        }
+        public CItem()
+        {
+            id = countObj++;
+        }
         public override string ToString()
         {
-            return $"idItem: {id}, kashroo: {kashroot},expiryDate:{expiryDate},takeSpace:{takeSpace}";
+            return $"idItem: {id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {typeI}";
+        }
+
+        public int CompareTo(CItem otherItem)
+        {
+            return (this.ExpiryDate.CompareTo(otherItem.ExpiryDate));
+
         }
     }
 }
+

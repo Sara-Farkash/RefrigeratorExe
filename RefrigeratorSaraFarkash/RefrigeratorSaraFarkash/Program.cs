@@ -4,79 +4,224 @@ using RefrigeratorSaraFarkash;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+
 namespace exeRefreg
 {
     class Program
     {
-        //Function order all the Refrigerators
-        public static List<CRefrigerator> SortRefrigeratorsByFreeSpace(List<CRefrigerator> refrigerators)
+        public static List<CRefrigerator> SortRefrigerator(List<CRefrigerator> refrigerators)
         {
-            return refrigerators.OrderByDescending(refrigerator => refrigerator.spaceLeftInRefrigerator()).ToList();
+            refrigerators.Sort();
+            return refrigerators;
         }
-        //Function build Shelf
-        public static CShelf buildShelf()
+        public static void inputKoshroot(CItem cItem)
         {
-            CShelf shelf1 = new CShelf();
-            Console.WriteLine("now we going build a shelf!");
-            Console.WriteLine("enter id for the shelf:");
-            shelf1.Id = int.Parse(Console.ReadLine());
-            Console.WriteLine("enter numberLevel for the shelf:");
-            shelf1.NumberLevel = int.Parse(Console.ReadLine());
-            Console.WriteLine("enter placeInShelf for the shelf:");
-            shelf1.PlaceInShelf = double.Parse(Console.ReadLine());
-            Console.WriteLine("now you dont have items in the shelf if you want to put item so you can AddItem");
-            shelf1.Items = new List<CItem>();
-            return shelf1;
-        }
-        //Function build item
-        public static CRefrigerator BuildRefrigerator()
-        {
-            CRefrigerator refrigerator1 = new CRefrigerator();
-            Console.WriteLine("Now we are going to build a refrigerator according to your requirements:");
-            Console.WriteLine("enter id for the refrigerator ");
-            refrigerator1.Id = int.Parse(Console.ReadLine());
-            Console.WriteLine("enter Model for the refrigerator ");
-            refrigerator1.Model = int.Parse(Console.ReadLine());
-            Console.WriteLine("enter Color for the refrigerator ");
-            refrigerator1.Color = Console.ReadLine();
-            Console.WriteLine("enter NumberOfShelves for the refrigerator ");
-            refrigerator1.NumberOfShelves = int.Parse(Console.ReadLine());
-            for (int i = 0; i < refrigerator1.NumberOfShelves; i++)
+            Console.WriteLine("please enter Koshroot");
+            try
             {
-                CShelf shelf = buildShelf();
-                refrigerator1.Shelfs.Add(shelf);
+                cItem.Kashroot = Console.ReadLine();
             }
-            return refrigerator1;
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputKoshroot(cItem);
+            }
+        }
+
+        public static void inputName(CItem cItem)
+        {
+            Console.WriteLine("please enter Name");
+            try
+            {
+                cItem.Name = Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputName(cItem);
+            }
+        }
+
+        public static void inputTakeSpace(CItem cItem)
+        {
+            Console.WriteLine("please enter TakeSpace");
+            try
+            {
+                cItem.TakeSpace = double.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputTakeSpace(cItem);
+            }
+        }
+
+        public static void inputTypeI(CItem cItem)
+        {
+            Console.WriteLine("please enter TypeI");
+            try
+            {
+                cItem.TypeI = Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                inputTypeI(cItem);
+            }
+        }
+
+        public static void inputExpiryDate(CItem cItem)
+        {
+            Console.WriteLine("please enter TypeI");
+            try
+            {
+                cItem.ExpiryDate = DateTime.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+                inputExpiryDate(cItem);
+            }
+
+        }
+        public static CItem buildItem()
+        {
+            CItem item = new CItem();
+
+            inputName(item);
+            inputKoshroot(item);
+            inputTakeSpace(item);
+            inputTypeI(item);
+            inputExpiryDate(item);
+
+            return item;
+        }
+
+        public static void inputnumberLevel(CShelf shelf)
+        {
+            Console.WriteLine("please enter numberLevel");
+            try
+            {
+                shelf.NumberLevel = int.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputnumberLevel(shelf);
+            }
+
+        }
+        public static void inputPlaceInShelf(CShelf shelf)
+        {
+            Console.WriteLine("please enter PlaceInShelf");
+            try
+            {
+                shelf.PlaceInShelf = double.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputPlaceInShelf(shelf);
+            }
+
+        }
+        public static CShelf buildShelfs()
+        {
+            CShelf shelf = new CShelf();
+            inputnumberLevel(shelf);
+            inputPlaceInShelf(shelf);
+            Console.WriteLine(shelf.ToString());
+            return shelf;
+        }
+
+        public static void inputModel(CRefrigerator refrigerator)
+        {
+            Console.WriteLine("please enter model");
+            try
+            {
+                refrigerator.Model = Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputModel(refrigerator);
+            }
+
+        }
+        public static void inputColor(CRefrigerator refrigerator)
+        {
+            Console.WriteLine("please enter color");
+            try
+            {
+                refrigerator.Color = Console.ReadLine();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputColor(refrigerator);
+            }
+
+        }
+        public static void inputNumberOfShelves(CRefrigerator refrigerator)
+        {
+            Console.WriteLine("please enter NumberOfShelves");
+            try
+            {
+                refrigerator.NumberOfShelves = int.Parse(Console.ReadLine());
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+                inputNumberOfShelves(refrigerator);
+            }
+
+        }
+
+        public static CRefrigerator buildRefrigerator()
+        {
+
+            CRefrigerator refrigerator = new CRefrigerator();
+            inputModel(refrigerator);
+            inputColor(refrigerator);
+            inputNumberOfShelves(refrigerator);
+
+            return refrigerator;
         }
 
         static void Main(string[] args)
         {
+            bool flag = true;
+            //items
+
             CItem item1 = new CItem();
-            item1.ExpiryDate = DateTime.Now;
-            item1.IdShelf = 1;
-            item1.Kashroot = "dairy";
-            item1.Name = "coffe";
-            item1.TakeSpace = 2.4;
-            item1.TypeI = "drink";
+            item1 = buildItem();
             CItem item2 = new CItem();
-            DateTime threeMonthsAgo = DateTime.Now.AddMonths(-3);
-            item2.ExpiryDate = threeMonthsAgo;
-            item2.IdShelf = 1;
-            item2.Kashroot = "dairy";
-            item2.Name = "coffe";
-            item2.TakeSpace = 2.4;
-            item2.TypeI = "drink";
+            item2 = buildItem();
 
-            CRefrigerator refrigerator1 = BuildRefrigerator();
+            //shelfs
+            CShelf shelf1 = new CShelf();
+            shelf1 = buildShelfs();
+            shelf1.AddItem(item1);
+            shelf1.AddItem(item2);
 
+            //refrigerators
+            List<CRefrigerator> refrigerators = new List<CRefrigerator>();
+            CRefrigerator refrigerator = new CRefrigerator();
+            refrigerator = buildRefrigerator();
+            refrigerator.Shelfs.Add(shelf1);
+            refrigerators.Add(refrigerator);
+            Console.WriteLine("The Refrigerator app ❤ ");
 
-            refrigerator1.pushToRef(item1);
-            refrigerator1.pushToRef(item2);
-
-            List<CRefrigerator> arrRefrigerator = new List<CRefrigerator>();
-            //part 3
-            int flag = 1;
-            while (flag == 1)
+            while (flag)
             {
                 Console.WriteLine("Press 1: the program will print all the items on the refrigerator and all its contents.");
                 Console.WriteLine("Click 2: the program will print how much space is left in the fridge");
@@ -93,61 +238,59 @@ namespace exeRefreg
                 switch (choice)
                 {
                     case 1:
-                        Console.WriteLine(refrigerator1.ToString());
+                        Console.WriteLine(refrigerator.ToString());
                         break;
                     case 2:
-                        Console.WriteLine(refrigerator1.spaceLeftInRefrigerator());
+                        Console.WriteLine(refrigerator.spaceLeftInRefrigerator());
                         break;
                     case 3:
                         Console.WriteLine("Enter the item details:");
-                        CItem item = new CItem();
-                        item.IdShelf = int.Parse(Console.ReadLine());
-                        item.Kashroot = Console.ReadLine();
-                        item.Name = Console.ReadLine();
-                        item.TakeSpace = double.Parse(Console.ReadLine());
-                        item.TypeI = Console.ReadLine();
-                        refrigerator1.pushToRef(item);
+                        CItem itemtemp = new CItem();
+                        itemtemp = buildItem();
+                        refrigerator.pushToRefItem(itemtemp);
                         break;
                     case 4:
                         Console.WriteLine("Enter the ID of the item to remove:");
                         int idToRemove = int.Parse(Console.ReadLine());
-                        CItem itemWantOut = refrigerator1.removeItem(idToRemove);
+                        CItem itemWantOut = refrigerator.removeItemFromRef(idToRemove);
                         break;
                     case 5:
-                        //מה זה אומר את כלל הפריטים שנבדקו?
-                        refrigerator1.cleanExpired();
+                        refrigerator.cleanExpired();
                         break;
                     case 6:
                         Console.WriteLine("What do you want to eat?");
                         string kashroot = Console.ReadLine();
                         string typeEat = Console.ReadLine();
-                        List<CItem> listOfFoods = refrigerator1.wantEat(kashroot, typeEat);
-                        foreach (CItem food in listOfFoods)
-                            Console.WriteLine(food.ToString());
+                        List<CItem> listOfFoods = refrigerator.wantEat(kashroot, typeEat);
+                        if (listOfFoods.Count <= 0)
+                            Console.WriteLine("Sorry we don't have anything to offer you to eat");
+                        else
+                        {
+                            foreach (CItem food in listOfFoods)
+                                Console.WriteLine(food.ToString());
+                        }
                         break;
                     case 7:
-                        List<CItem> ItemsOrder = refrigerator1.SortItemsByExpirationDate();
+                        List<CItem> ItemsOrder = refrigerator.SortItems();
+                        foreach (CItem item in ItemsOrder)
+                            Console.WriteLine(item.ToString());
                         break;
                     case 8:
-                        List<CShelf> orderShelfs = refrigerator1.SortShelvesByFreeSpace();
+                        List<CShelf> orderShelfs = refrigerator.SortShelf();
                         foreach (CShelf shelf in orderShelfs)
                             Console.WriteLine(shelf.ToString());
                         break;
                     case 9:
-                        List<CRefrigerator> sortedRef = new List<CRefrigerator>();
-                        //sortedRef = SortRefrigeratorsByFreeSpace(arrRefrigerator);
+                        List<CRefrigerator> sortedRef = SortRefrigerator(refrigerators);
                         break;
                     case 10:
-                        refrigerator1.beforeShopping();
+                        refrigerator.beforeShopping();
                         break;
                     case 100:
-                        flag = 0;
+                        flag = false;
                         break;
                 }
-
-
             }
-
         }
     }
 }
