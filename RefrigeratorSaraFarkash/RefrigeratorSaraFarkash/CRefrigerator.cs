@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
 namespace RefrigeratorSaraFarkash
 {
-    internal class CRefrigerator
+    class CRefrigerator : IComparable<CRefrigerator>
     {
-
         private static int countObj = 0;
 
         private int id;
@@ -17,20 +17,20 @@ namespace RefrigeratorSaraFarkash
         public int Id
         {
             get { return id; }
-            set { id = countObj++; }
+            //set { id = countObj++; }
         }
 
-        private int model;
+        private string model;
 
-        public int Model
+        public string Model
         {
             get { return model; }
-            set {
-                if (value >= 0)
+            set
+            {
+                if (!value.Equals(""))
                     model = value;
                 else
-                    Console.WriteLine(("Illegal model, model must be contain int");
-               //     throw new ArithmeticException("Illegal model, model must be contain int");
+                    throw new ArithmeticException("Illegal model, model must be contain string");
             }
         }
 
@@ -39,12 +39,12 @@ namespace RefrigeratorSaraFarkash
         public string Color
         {
             get { return color; }
-            set {
+            set
+            {
                 if (!value.Equals(""))
                     color = value;
                 else
-                    Console.WriteLine("Illegal color, color must be contain string");
-                  //  throw new ArithmeticException("Illegal color, color must be contain string");
+                    throw new ArithmeticException("Illegal color, color must be contain string");
             }
         }
         private int numberOfShelves;
@@ -52,51 +52,53 @@ namespace RefrigeratorSaraFarkash
         public int NumberOfShelves
         {
             get { return numberOfShelves; }
-            set {
+            set
+            {
                 if (value >= 0)
                     numberOfShelves = value;
                 else
-                    Console.WriteLine("Illegal numbershelves, numbershelves must be greater or equal zero");
-                    //throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
+                    throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
             }
         }
 
-        private List<CShelf> shelfs;
+        public List<CShelf> shelfs;
 
         public List<CShelf> Shelfs
 
         {
             get { return shelfs; }
-            set
-            {
-                if (!(value is null))
-                {
-                    shelfs = value;
-                }
-                else
-                {
-                    shelfs = new List<CShelf>();
-                }
-            }
+            //set
+            //{
+            //    if (!(value is null))
+            //    {
+            //        shelfs = value;
+            //    }
+            //    else
+            //    {
+            //        shelfs = new List<CShelf>();
+            //    }
+            //}
         }
 
         public CRefrigerator()
         {
-
+            id = countObj++;
             shelfs = new List<CShelf>();
-            //try
-            //{
-            //    Model = modell;
-            //    Color = color;
+        }
 
-            //}
-            //catch (Exception e)
-            //{
-            //    Console.WriteLine(e.Message);
-            //}
+        public void AddShelfs(CShelf shelf)
+        {
+            if (shelfs.Count >= numberOfShelves)
+            {
+                Console.WriteLine("we cant add this shelfs, there is no place!!");
+            }
+            else
+            {
+                shelfs.Add(shelf);
+                Console.WriteLine("the shefs added!!");
+            }
 
         }
- 
         public override string ToString()
         {
             StringBuilder result = new StringBuilder();
@@ -123,9 +125,9 @@ namespace RefrigeratorSaraFarkash
             double space = 0.0;
             if (numberOfShelves >= 0)
             {
-                for (int i = 0; i < numberOfShelves; i++)
+                for (int i = 0; i < shelfs.Count; i++)
                 {
-                    space += shelfs[i].spaceLeftInShelfs();
+                    space = space + shelfs[i].spaceLeftInShelfs();
                 }
             }
             else
@@ -137,7 +139,7 @@ namespace RefrigeratorSaraFarkash
         }
 
         //3
-        public void pushToRef(CItem item1)
+        public void pushToRefItem(CItem item1)
         {
 
             if (this.spaceLeftInRefrigerator() < item1.TakeSpace)
@@ -148,44 +150,39 @@ namespace RefrigeratorSaraFarkash
                 {
                     if (this.shelfs[i].spaceLeftInShelfs() > item1.TakeSpace)
                     {
-                        item1.Id = this.shelfs[i].Id;
+                        item1.IdShelf = this.shelfs[i].Id;
                         this.shelfs[i].AddItem(item1);
                         Console.WriteLine("the item is added!!!");
-
                         break;
                     }
                 }
             }
         }
 
-
-
         //4
-        public CItem removeItem(int idItem)
+        public CItem removeItemFromRef(int idItem)
         {
-            CItem removeItem = null;
-
+            CItem itemRemove;
             for (int i = 0; i < this.numberOfShelves; i++)
             {
                 if (shelfs[i].findItemInShelf(idItem))
                 {
-                    removeItem = shelfs[i].removeItemfromShelf(idItem);
-                    return removeItem;
+                    itemRemove = shelfs[i].removeItemfromShelf(idItem);
+                    return itemRemove;
                 }
             }
-            if (removeItem == null)
-                Console.WriteLine("the item not found!!!");
-            return removeItem;
+
+            Console.WriteLine("the item not found!!!");
+            return null;
         }
         //5
         public void cleanExpired()
         {
-            for (int i = 0; i < numberOfShelves; i++)
+            for (int i = 0; i < shelfs.Count; i++)
             {
                 List<CItem> itemsToRemove = new List<CItem>();
                 foreach (CItem item in shelfs[i].Items)
                 {
-
                     if (item.ExpiryDate < DateTime.Today)
                     {
                         Console.WriteLine("the product is" + item.ToString()
@@ -193,9 +190,13 @@ namespace RefrigeratorSaraFarkash
                         itemsToRemove.Add(item);
                     }
                 }
-                foreach (CItem itemToRemove in itemsToRemove)
+                if (itemsToRemove.Count >= 0)
                 {
-                    CItem removedItem = shelfs[i].removeItemfromShelf(itemToRemove.Id);
+                    // Since it is impossible to delete while in a loop, I created a list that stores all the expired products.
+                    foreach (CItem item in itemsToRemove)
+                    {
+                        CItem itemremoving = removeItemFromRef(item.Id);
+                    }
                 }
             }
         }
@@ -205,7 +206,7 @@ namespace RefrigeratorSaraFarkash
         {
             List<CItem> wanttoeat = new List<CItem>();
 
-            for (int i = 0; i < numberOfShelves; i++)
+            for (int i = 0; i < shelfs.Count; i++)
             {
                 foreach (CItem item in shelfs[i].Items)
                 {
@@ -216,39 +217,54 @@ namespace RefrigeratorSaraFarkash
             return wanttoeat;
         }
 
+        // sort
 
-        //8
-        // 
-        public List<CShelf> SortShelvesByFreeSpace()
+        public int CompareTo(CRefrigerator otherRefrigerator)
         {
-            return this.shelfs.OrderByDescending(shelf => shelf.spaceLeftInShelfs()).ToList();
+            return ((this.spaceLeftInRefrigerator() > otherRefrigerator.spaceLeftInRefrigerator()) ? (-1) : (this.spaceLeftInRefrigerator() == otherRefrigerator.spaceLeftInRefrigerator()) ? 0 : 1);
         }
 
-        public List<CItem> SortItemsByExpirationDate()
+        public List<CItem> SortItems()
         {
-            List<CItem> allItems = shelfs.SelectMany(shelf => shelf.Items).ToList();
-            return allItems.OrderBy(item => item.ExpiryDate).ToList();
+            List<CItem> items = new List<CItem>();
+            foreach (CShelf shelf in this.shelfs)
+            {
+                items.AddRange(shelf.Items);
+            }
+            items.Sort();
+            return items;
+        }
+        public List<CShelf> SortShelf()
+        {
+            List<CShelf> shelfs = new List<CShelf>();
+            foreach (CShelf shelf in this.shelfs)
+            {
+                shelfs.Add(shelf);
+            }
+            shelfs.Sort();
+
+            return shelfs;
         }
         //1
         //
-//A function that receives a date and returns an array with all the food deleted up to the date
-public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
+        //A function that receives a date and returns an list with all the food deleted up to the date
+        public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
         {
             List<CItem> RemoveItem = new List<CItem>();
             DateTime lastDate = DateTime.Today;
             lastDate = lastDate.AddDays(untilday);
             for (int i = 0; i < this.numberOfShelves; i++)
             {
-                List<CItem> itemsToRemove = new List<CItem>();
                 foreach (CItem item in this.Shelfs[i].Items)
                 {
                     if (item.ExpiryDate <= lastDate && KashrootItem == item.Kashroot)
                     {
-                        itemsToRemove.Add(item);                    }
+                        RemoveItem.Add(item);
+                    }
                 }
-                foreach (CItem itemToRemove in itemsToRemove)
+                foreach (CItem itemToRemove in RemoveItem)
                 {
-                    RemoveItem.Add(removeItem(itemToRemove.Id));
+                    CItem itemremving = removeItemFromRef(itemToRemove.Id);
                 }
             }
             return RemoveItem;
@@ -257,23 +273,23 @@ public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
         {
             if (this.spaceLeftInRefrigerator() >= 20)
                 return true;
-
             return false;
         }
 
-        public void addListItem(List<CItem> itemsAdd)
+        public void addListItems(List<CItem> itemsAdd)
         {
             foreach (CItem item in itemsAdd)
             {
-                this.pushToRef(item);
+                this.pushToRefItem(item);
             }
         }
 
         public void beforeShopping()
         {
-            List<CItem> ChalviRemove = new List<CItem>();
-            List<CItem> BashariRemove = new List<CItem>();
-            List<CItem> ParveiRemove = new List<CItem>();
+
+            List<CItem> dairyRemove = new List<CItem>();
+            List<CItem> meatyRemove = new List<CItem>();
+            List<CItem> parveRemove = new List<CItem>();
             int flag = 0;
             if (this.spaceLeftInRefrigerator() < 29)
             {
@@ -281,17 +297,17 @@ public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
 
                 if (!this.ThereIsPlacefor20())
                 {
-                    ChalviRemove = this.wantToREMOVE(3, "Chalvi");
+                    dairyRemove = this.wantToREMOVE(3, "dairy");
                     flag = 1;
                     if (!this.ThereIsPlacefor20())
                     {
-                        BashariRemove = this.wantToREMOVE(7, "Bashari");
+                        meatyRemove = this.wantToREMOVE(7, "meaty");
                         flag = 2;
                     }
 
                     if (!this.ThereIsPlacefor20())
                     {
-                        ParveiRemove = this.wantToREMOVE(1, "Parve");
+                        parveRemove = this.wantToREMOVE(1, "parve");
                         flag = 3;
                     }
 
@@ -299,10 +315,10 @@ public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
                 if (!this.ThereIsPlacefor20() && flag == 3)
                 {
                     //We pushed all the products back into the array
-                    Console.WriteLine("This is not the time to shop today!!!!");
-                    this.addListItem(ChalviRemove);
-                    this.addListItem(BashariRemove);
-                    this.addListItem(ParveiRemove);
+                    Console.WriteLine("This is not the time to shoping today!!!!");
+                    this.addListItems(dairyRemove);
+                    this.addListItems(meatyRemove);
+                    this.addListItems(parveRemove);
                 }
             }
             if ((this.ThereIsPlacefor20() && flag == 1 || flag == 2 || flag == 3))
