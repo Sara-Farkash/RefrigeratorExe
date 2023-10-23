@@ -44,7 +44,6 @@ namespace exeRefreg
                 inputName(cItem);
             }
         }
-
         public static void inputTakeSpace(CItem cItem)
         {
             Console.WriteLine("please enter TakeSpace");
@@ -86,18 +85,15 @@ namespace exeRefreg
                 Console.WriteLine(e.Message);
                 inputExpiryDate(cItem);
             }
-
         }
         public static CItem buildItem()
         {
             CItem item = new CItem();
-
             inputName(item);
             inputKoshroot(item);
             inputTakeSpace(item);
             inputTypeI(item);
             inputExpiryDate(item);
-
             return item;
         }
 
