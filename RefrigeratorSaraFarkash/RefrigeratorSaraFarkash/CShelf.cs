@@ -51,7 +51,7 @@ namespace RefrigeratorSaraFarkash
 
         public void AddItem(CItem item)
         {
-            item.IdShelf = this.Id;
+            item.ShelfId = this.Id;
             items.Add(item);
             Console.WriteLine("the item is added!");
         }

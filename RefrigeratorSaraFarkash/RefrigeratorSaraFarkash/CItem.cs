@@ -29,9 +29,9 @@ namespace RefrigeratorSaraFarkash
             }
         }
 
-        private Guid idShelf;
+        private Guid shelfId;
 
-        public Guid IdShelf {get;set;}
+        public Guid ShelfId { get;set;}
 
         private string itemType;
 

@@ -138,7 +138,7 @@ namespace RefrigeratorSaraFarkash
                 {
                     if (this.shelfs[i].spaceLeftInShelfs() > item1.TakeSpace)
                     {
-                        item1.IdShelf = this.shelfs[i].Id;
+                        item1.ShelfId = this.shelfs[i].Id;
                         this.shelfs[i].AddItem(item1);
                         Console.WriteLine("the item is added!!!");
                         break;
