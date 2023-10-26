@@ -105,21 +105,7 @@ namespace exeRefreg
             return item;
         }
 
-        public static void inputnumberLevel(CShelf shelf)
-        {
-            Console.WriteLine("please enter numberLevel");
-            try
-            {
-                shelf.NumberLevel = int.Parse(Console.ReadLine());
-            }
-            catch (Exception e)
-            {
 
-                Console.WriteLine(e.Message);
-                inputnumberLevel(shelf);
-            }
-
-        }
         public static void inputPlaceInShelf(CShelf shelf)
         {
             Console.WriteLine("please enter PlaceInShelf");
@@ -138,7 +124,7 @@ namespace exeRefreg
         public static CShelf buildShelfs()
         {
             CShelf shelf = new CShelf();
-            inputnumberLevel(shelf);
+            shelf.NumberLevel = uint.Parse(Console.ReadLine());
             inputPlaceInShelf(shelf);
             Console.WriteLine(shelf.ToString());
             return shelf;

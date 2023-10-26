@@ -14,18 +14,13 @@ namespace RefrigeratorSaraFarkash
         public Guid Id { get; private set; }
 
 
-        private int numberLevel;
+        private uint numberLevel;
 
-        public int NumberLevel
+        public uint NumberLevel
         {
             get { return numberLevel; }
             set
-            {
-                if (value >= 0)
-                    numberLevel = value;
-                else
-                    throw new ArithmeticException("Illegal floor ,floor must be a positive number");
-            }
+            { numberLevel = value; }
         }
 
         private double placeInShelf;
