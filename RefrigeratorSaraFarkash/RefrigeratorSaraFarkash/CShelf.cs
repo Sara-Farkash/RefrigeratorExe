@@ -31,7 +31,6 @@ namespace RefrigeratorSaraFarkash
         }
 
         private double placeInShelf;
-
         public double PlaceInShelf
         {
             get { return placeInShelf; }
@@ -72,9 +71,9 @@ namespace RefrigeratorSaraFarkash
             spaceleft = this.PlaceInShelf - spaceOccupiedOnTheShelf;
             return spaceleft;
         }
+
         public CItem removeItemfromShelf(Guid idItem)
         {
-
             foreach (CItem item in items)
             {
                 if (item.Id == idItem)

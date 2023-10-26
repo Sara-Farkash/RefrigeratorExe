@@ -18,7 +18,7 @@ namespace exeRefreg
 
         public static void inputName(CItem cItem)
         {
-            Console.WriteLine("please enter Name");
+            Console.WriteLine("please enter Item Name");
             try
             {
                 cItem.Name = Console.ReadLine();
@@ -47,7 +47,7 @@ namespace exeRefreg
 
         public static void inputTypeI(CItem cItem)
         {
-            Console.WriteLine("please enter itemType");
+            Console.WriteLine("please enter item Type");
             bool flag = true;
             while (flag)
             {
@@ -66,7 +66,7 @@ namespace exeRefreg
 
         public static void inputExpiryDate(CItem cItem)
         {
-            Console.WriteLine("please enter TypeI");
+            Console.WriteLine("please enter Expiry Date:");
             try
             {
                 cItem.ExpiryDate = DateTime.Parse(Console.ReadLine());
@@ -213,17 +213,17 @@ namespace exeRefreg
 
             while (flag)
             {
-                Console.WriteLine("Press 1: the program will print all the items on the refrigerator and all its contents.");
+                Console.WriteLine("Click 1: the program will print all the items on the refrigerator and all its contents.");
                 Console.WriteLine("Click 2: the program will print how much space is left in the fridge");
-                Console.WriteLine("Press 3: The program will allow the user to put an item in the fridge.");
-                Console.WriteLine("Press 4: The program will allow the user to remove an item from the refrigerator.");
-                Console.WriteLine("Press 5: the program will clean the refrigerator and print all the checked items to the user.");
-                Console.WriteLine("Press 6: the program will ask the user What do I want to eat?; and bring the function to bring a product.");
+                Console.WriteLine("Click 3: The program will allow the user to put an item in the fridge.");
+                Console.WriteLine("Click 4: The program will allow the user to remove an item from the refrigerator.");
+                Console.WriteLine("Click 5: the program will clean the refrigerator and print all the checked items to the user.");
+                Console.WriteLine("Click 6: the program will ask the user What do I want to eat?; and bring the function to bring a product.");
                 Console.WriteLine("Click 7: the program will print all the products sorted by their expiration date.");
-                Console.WriteLine("Press 8: the program will print all the shelves arranged according to the free space left on them.");
-                Console.WriteLine("Press 9: the program will print all the refrigerators arranged according to the free space left in them.");
+                Console.WriteLine("Click 8: the program will print all the shelves arranged according to the free space left on them.");
+                Console.WriteLine("Click 9: the program will print all the refrigerators arranged according to the free space left in them.");
                 Console.WriteLine("Click 10: The program will prepare the refrigerator for shopping.");
-                Console.WriteLine("Press 100: system shutdown.");
+                Console.WriteLine("Click 100: system shutdown.");
                 int choice = int.Parse(Console.ReadLine());
                 switch (choice)
                 {

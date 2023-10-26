@@ -230,7 +230,7 @@ namespace RefrigeratorSaraFarkash
         //1
         //
         //A function that receives a date and returns an list with all the food deleted up to the date
-        public List<CItem> wantToREMOVE(int untilday, Kashroot KashrootItem)
+        public List<CItem> wantToRemove(int untilday, Kashroot KashrootItem)
         {
             List<CItem> RemoveItem = new List<CItem>();
             DateTime lastDate = DateTime.Today;
@@ -279,17 +279,17 @@ namespace RefrigeratorSaraFarkash
 
                 if (!this.ThereIsPlacefor20())
                 {
-                    dairyRemove = this.wantToREMOVE(3,Kashroot.Dairy);
+                    dairyRemove = this.wantToRemove(3,Kashroot.Dairy);
                     flag = 1;
                     if (!this.ThereIsPlacefor20())
                     {
-                        meatyRemove = this.wantToREMOVE(7,Kashroot.Meaty);
+                        meatyRemove = this.wantToRemove(7,Kashroot.Meaty);
                         flag = 2;
                     }
 
                     if (!this.ThereIsPlacefor20())
                     {
-                        parveRemove = this.wantToREMOVE(1,Kashroot.Parve);
+                        parveRemove = this.wantToRemove(1,Kashroot.Parve);
                         flag = 3;
                     }
 
