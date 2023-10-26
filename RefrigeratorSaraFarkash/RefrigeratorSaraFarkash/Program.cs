@@ -15,20 +15,6 @@ namespace exeRefreg
             refrigerators.Sort();
             return refrigerators;
         }
-        public static void inputKoshroot(CItem cItem)
-        {
-            Console.WriteLine("please enter Koshroot");
-            try
-            {
-                cItem.Kashroot = Console.ReadLine();
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message);
-                inputKoshroot(cItem);
-            }
-        }
 
         public static void inputName(CItem cItem)
         {
@@ -62,14 +48,19 @@ namespace exeRefreg
         public static void inputTypeI(CItem cItem)
         {
             Console.WriteLine("please enter itemType");
-            try
+            bool flag = true;
+            while (flag)
             {
-                cItem.ItemType = Console.ReadLine();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-                inputTypeI(cItem);
+                Console.WriteLine("please chose the type item:");
+                Console.WriteLine("the option is:Food,food,Drink,drink");
+                string userInputType = Console.ReadLine();
+                if (Enum.TryParse<ItemType>(userInputType, out ItemType result))
+                {
+                    cItem.ItemType = result;
+                    flag = false;
+                }
+                else
+                    Console.WriteLine("Invalid select, try agian");
             }
         }
 
@@ -86,11 +77,28 @@ namespace exeRefreg
                 inputExpiryDate(cItem);
             }
         }
+        public static void inputKashroot(CItem item)
+        {
+
+            bool flag = true;
+            while (flag) { 
+            Console.WriteLine("please chose the kashroot:");
+            Console.WriteLine("the option is:Dairy,\r\nParve,\r\nMeaty");
+            string userInputKashroot = Console.ReadLine();
+            if (Enum.TryParse<Kashroot>(userInputKashroot, out Kashroot result))
+                {
+                    item.Kashroot = result;
+                    flag = false;
+                }
+            else
+                Console.WriteLine("Invalid select, try agian");
+            }
+        }
         public static CItem buildItem()
         {
             CItem item = new CItem();
             inputName(item);
-            inputKoshroot(item);
+            inputKashroot(item);
             inputTakeSpace(item);
             inputTypeI(item);
             inputExpiryDate(item);
@@ -254,16 +262,28 @@ namespace exeRefreg
                         refrigerator.cleanExpired();
                         break;
                     case 6:
-                        Console.WriteLine("What do you want to eat?");
-                        string kashroot = Console.ReadLine();
-                        string typeEat = Console.ReadLine();
-                        List<CItem> listOfFoods = refrigerator.wantEat(kashroot, typeEat);
-                        if (listOfFoods.Count <= 0)
-                            Console.WriteLine("Sorry we don't have anything to offer you to eat");
+                        Console.WriteLine("What do you want to eat?  the type is: Food.food.Drink.drink");
+                        string userInputType = Console.ReadLine();
+                        if (!Enum.TryParse<ItemType>(userInputType, out ItemType resultTypeItem))
+                            Console.WriteLine("sorry try again you chose not invlied kashroot!");
+                        else
+                        {                  
+                        Console.WriteLine("please chose the kashroot:");
+                        Console.WriteLine("the option is:Dairy,\r\nParve,\r\nMeaty");
+                        string userInputKashroot = Console.ReadLine();
+                        if (!Enum.TryParse<Kashroot>(userInputKashroot, out Kashroot resultKashroot))
+                            Console.WriteLine("sorry try again you chose not invlied kashroot!");
                         else
                         {
-                            foreach (CItem food in listOfFoods)
-                                Console.WriteLine(food.ToString());
+                            List<CItem> listOfFoods = refrigerator.wantEat(resultKashroot, resultTypeItem);
+                            if (listOfFoods.Count <= 0)
+                                Console.WriteLine("Sorry we don't have anything to offer you to eat");
+                            else
+                            {
+                                foreach (CItem food in listOfFoods)
+                                    Console.WriteLine(food.ToString());
+                            }
+                            }
                         }
                         break;
                     case 7:

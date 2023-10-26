@@ -190,7 +190,7 @@ namespace RefrigeratorSaraFarkash
         }
 
         //6
-        public List<CItem> wantEat(string kashroot, string typeeat)
+        public List<CItem> wantEat(Kashroot kashroot, ItemType typeeat)
         {
             List<CItem> wanttoeat = new List<CItem>();
 
@@ -198,7 +198,7 @@ namespace RefrigeratorSaraFarkash
             {
                 foreach (CItem item in shelfs[i].Items)
                 {
-                    if (item.Kashroot == kashroot && item.ItemType == typeeat && item.ExpiryDate > DateTime.Today)
+                    if (item.Kashroot.Equals(kashroot) && item.ItemType.Equals(typeeat) && item.ExpiryDate > DateTime.Today)
                         wanttoeat.Add(item);
                 }
             }
@@ -236,7 +236,7 @@ namespace RefrigeratorSaraFarkash
         //1
         //
         //A function that receives a date and returns an list with all the food deleted up to the date
-        public List<CItem> wantToREMOVE(int untilday, string KashrootItem)
+        public List<CItem> wantToREMOVE(int untilday, Kashroot KashrootItem)
         {
             List<CItem> RemoveItem = new List<CItem>();
             DateTime lastDate = DateTime.Today;
@@ -245,7 +245,7 @@ namespace RefrigeratorSaraFarkash
             {
                 foreach (CItem item in this.Shelfs[i].Items)
                 {
-                    if (item.ExpiryDate <= lastDate && KashrootItem == item.Kashroot)
+                    if (item.ExpiryDate <= lastDate && KashrootItem.Equals(item.Kashroot))
                     {
                         RemoveItem.Add(item);
                     }
@@ -285,17 +285,17 @@ namespace RefrigeratorSaraFarkash
 
                 if (!this.ThereIsPlacefor20())
                 {
-                    dairyRemove = this.wantToREMOVE(3, "dairy");
+                    dairyRemove = this.wantToREMOVE(3,Kashroot.Dairy);
                     flag = 1;
                     if (!this.ThereIsPlacefor20())
                     {
-                        meatyRemove = this.wantToREMOVE(7, "meaty");
+                        meatyRemove = this.wantToREMOVE(7,Kashroot.Meaty);
                         flag = 2;
                     }
 
                     if (!this.ThereIsPlacefor20())
                     {
-                        parveRemove = this.wantToREMOVE(1, "parve");
+                        parveRemove = this.wantToREMOVE(1,Kashroot.Parve);
                         flag = 3;
                     }
 

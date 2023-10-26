@@ -8,9 +8,17 @@ using System.Threading.Tasks;
 
 namespace RefrigeratorSaraFarkash
 {
+    public enum Kashroot {Dairy,
+                         Parve,
+                         Meaty}
+    public enum ItemType
+                        { Food,
+                        food,
+                        drink,
+                        Drink}
     internal class CItem:IComparable<CItem>
     {
-
+ 
         public Guid Id { get; private set; }
 
         private string name;
@@ -33,34 +41,25 @@ namespace RefrigeratorSaraFarkash
 
         public Guid ShelfId { get;set;}
 
-        private string itemType;
+        private ItemType itemType;
 
-        public string ItemType
+        public ItemType ItemType
         {
             get { return itemType; }
             set
             {
-                if (value.Equals("food") || value.Equals("Food") || value.Equals("Drink") || value.Equals("drink"))
-                    itemType = value;
-                else
-                    throw new FormatException("Illegal type, type must be food or Food or Drink or drink");
+                value = itemType;
             }
         }
 
-        private string kashroot;
+        private Kashroot kashroot;
 
-        public string Kashroot
+        public Kashroot Kashroot
         {
             get { return kashroot; }
             set
             {
-                if (value == "dairy" || value == "parve" || value == "meaty")
-                {
-                    kashroot = value;
-                }
-                else
-                    throw new FormatException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
-
+                kashroot = value;
             }
         }
         private DateTime expiryDate;
