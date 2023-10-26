@@ -96,7 +96,7 @@ namespace RefrigeratorSaraFarkash
         }
         public override string ToString()
         {
-            return $"idItem: {Id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {itemType}";
+            return $"idItem: {Id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {itemType} shelfId:{shelfId}";
         }
 
         public int CompareTo(CItem otherItem)

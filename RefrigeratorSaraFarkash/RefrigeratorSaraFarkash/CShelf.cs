@@ -106,16 +106,16 @@ namespace RefrigeratorSaraFarkash
 
         public override string ToString()
         {
-            StringBuilder DetailsShelf = new StringBuilder();
-            DetailsShelf.AppendLine($"ID: {Id}");
-            DetailsShelf.AppendLine($"numberLevel: {numberLevel}");
-            DetailsShelf.AppendLine($"placeInShelf: {placeInShelf}");
-            DetailsShelf.AppendLine("Items:");
+            StringBuilder shelfDetails = new StringBuilder();
+            shelfDetails.AppendLine($"ID: {Id}");
+            shelfDetails.AppendLine($"numberLevel: {numberLevel}");
+            shelfDetails.AppendLine($"placeInShelf: {placeInShelf}");
+            shelfDetails.AppendLine("Items:");
             foreach (CItem itemm in items)
             {
-                DetailsShelf.AppendLine(itemm.ToString());
+                shelfDetails.AppendLine(itemm.ToString());
             }
-            return DetailsShelf.ToString(); ;
+            return shelfDetails.ToString(); ;
         }
 
         public int CompareTo(CShelf othreShelfs)
