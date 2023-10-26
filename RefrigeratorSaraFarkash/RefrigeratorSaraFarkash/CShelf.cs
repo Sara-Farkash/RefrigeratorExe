@@ -22,6 +22,13 @@ namespace RefrigeratorSaraFarkash
             set
             { numberLevel = value; }
         }
+        private double spaceOccupiedOnTheShelf;
+
+        public double SpaceOccupiedOnTheShelf
+        {
+            get { return spaceOccupiedOnTheShelf; }
+            private set { spaceOccupiedOnTheShelf = value; }
+        }
 
         private double placeInShelf;
 
@@ -47,6 +54,7 @@ namespace RefrigeratorSaraFarkash
         public void AddItem(CItem item)
         {
             item.ShelfId = this.Id;
+            spaceOccupiedOnTheShelf += item.TakeSpace;
             items.Add(item);
             Console.WriteLine("the item is added!");
         }
@@ -60,16 +68,8 @@ namespace RefrigeratorSaraFarkash
         {
 
             double spaceleft = 0.0;
-            if (!(this.items is null))
-            {
-
-                foreach (CItem item in items)
-                {
-                    spaceleft += item.TakeSpace;
-                }
-            }
-
-            spaceleft = this.placeInShelf - spaceleft;
+           
+            spaceleft = this.PlaceInShelf - spaceOccupiedOnTheShelf;
             return spaceleft;
         }
         public CItem removeItemfromShelf(Guid idItem)

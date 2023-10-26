@@ -58,6 +58,7 @@ namespace RefrigeratorSaraFarkash
                     throw new ArithmeticException("Illegal numbershelves, numbershelves must be greater or equal zero");
             }
         }
+      
 
         public List<CShelf> shelfs;
 
@@ -111,18 +112,11 @@ namespace RefrigeratorSaraFarkash
         public double spaceLeftInRefrigerator()
         {
             double space = 0.0;
-            if (numberOfShelves >= 0)
+             foreach(CShelf shelf in shelfs)
             {
-                for (int i = 0; i < shelfs.Count; i++)
-                {
-                    space = space + shelfs[i].spaceLeftInShelfs();
-                }
+                if(shelf.items.Count>0)
+                space += shelf.spaceLeftInShelfs();
             }
-            else
-            {
-                Console.WriteLine("Invalid number of shelves. Cannot calculate space.");
-            }
-
             return space;
         }
 
