@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -20,10 +21,12 @@ namespace RefrigeratorSaraFarkash
             get { return model; }
             set
             {
-                if (!value.Equals(""))
-                    model = value;
+                string Illegal = @"[^0-9\s]";
+                bool ContainsInvalidCharacters = Regex.IsMatch(value, Illegal);
+                if (ContainsInvalidCharacters)
+                    throw new FormatException("Illegal name, name must be string");
                 else
-                    throw new ArithmeticException("Illegal model, model must be contain string");
+                    model = value;
             }
         }
 
@@ -34,10 +37,12 @@ namespace RefrigeratorSaraFarkash
             get { return color; }
             set
             {
-                if (!value.Equals(""))
-                    color = value;
+                string Illegal = @"[^0-9\s]";
+                bool ContainsInvalidCharacters = Regex.IsMatch(value, Illegal);
+                if (ContainsInvalidCharacters)
+                    throw new FormatException("Illegal name, name must be string");
                 else
-                    throw new ArithmeticException("Illegal color, color must be contain string");
+                    color = value;
             }
         }
         private int numberOfShelves;
@@ -193,7 +198,7 @@ namespace RefrigeratorSaraFarkash
             {
                 foreach (CItem item in shelfs[i].Items)
                 {
-                    if (item.Kashroot == kashroot && item.TypeI == typeeat && item.ExpiryDate > DateTime.Today)
+                    if (item.Kashroot == kashroot && item.ItemType == typeeat && item.ExpiryDate > DateTime.Today)
                         wanttoeat.Add(item);
                 }
             }

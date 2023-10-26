@@ -61,10 +61,10 @@ namespace exeRefreg
 
         public static void inputTypeI(CItem cItem)
         {
-            Console.WriteLine("please enter TypeI");
+            Console.WriteLine("please enter itemType");
             try
             {
-                cItem.TypeI = Console.ReadLine();
+                cItem.ItemType = Console.ReadLine();
             }
             catch (Exception e)
             {

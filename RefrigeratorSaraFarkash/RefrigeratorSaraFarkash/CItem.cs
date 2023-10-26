@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace RefrigeratorSaraFarkash
@@ -19,39 +20,30 @@ namespace RefrigeratorSaraFarkash
             get { return name; }
             set
             {
-                if (!value.Equals(""))
-                    name = value;
+                string Illegal = @"[^0-9\s]";
+                bool ContainsInvalidCharacters = Regex.IsMatch(value, Illegal);
+                if (ContainsInvalidCharacters)
+                    throw new FormatException("Illegal name, name must be string");
                 else
-                    throw new ArithmeticException("Illegal name, name must be string");
+                    name = value;
             }
         }
 
         private Guid idShelf;
 
-        public Guid IdShelf
-        {
-            get;
-            set;
-          //  {
-                
-                //if (value >= 0)
-                //    idShelf = value;
-                //else
-                //    throw new ArithmeticException("Illegal idShelf, idShelf must be int");
-           // }
-        }
+        public Guid IdShelf {get;set;}
 
-        private string typeI;
+        private string itemType;
 
-        public string TypeI
+        public string ItemType
         {
-            get { return typeI; }
+            get { return itemType; }
             set
             {
                 if (value.Equals("food") || value.Equals("Food") || value.Equals("Drink") || value.Equals("drink"))
-                    typeI = value;
+                    itemType = value;
                 else
-                    throw new ArithmeticException("Illegal type, type must be food or Food or Drink or drink");
+                    throw new FormatException("Illegal type, type must be food or Food or Drink or drink");
             }
         }
 
@@ -67,7 +59,7 @@ namespace RefrigeratorSaraFarkash
                     kashroot = value;
                 }
                 else
-                    throw new ArithmeticException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
+                    throw new FormatException("Invalid value for Kashroot. Kashroot must be meaty or parve or dairy");
 
             }
         }
@@ -105,7 +97,7 @@ namespace RefrigeratorSaraFarkash
         }
         public override string ToString()
         {
-            return $"idItem: {Id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {typeI}";
+            return $"idItem: {Id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {itemType}";
         }
 
         public int CompareTo(CItem otherItem)
