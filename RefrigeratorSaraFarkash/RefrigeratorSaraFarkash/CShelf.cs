@@ -11,14 +11,8 @@ namespace RefrigeratorSaraFarkash
     class CShelf : IComparable<CShelf>
     {
 
-        private static int countObj = 0;
+        public Guid Id { get; private set; }
 
-        private int id;
-
-        public int Id
-        {
-            get { return id; }
-        }
 
         private int numberLevel;
 
@@ -57,13 +51,13 @@ namespace RefrigeratorSaraFarkash
 
         public void AddItem(CItem item)
         {
-            item.IdShelf = this.id;
+            item.IdShelf = this.Id;
             items.Add(item);
             Console.WriteLine("the item is added!");
         }
         public CShelf()
         {
-            id = countObj++;
+            Id = Guid.NewGuid();
             items = new List<CItem>();
         }
 
@@ -83,7 +77,7 @@ namespace RefrigeratorSaraFarkash
             spaceleft = this.placeInShelf - spaceleft;
             return spaceleft;
         }
-        public CItem removeItemfromShelf(int idItem)
+        public CItem removeItemfromShelf(Guid idItem)
         {
 
             foreach (CItem item in items)
@@ -99,11 +93,11 @@ namespace RefrigeratorSaraFarkash
             return null;
         }
 
-        public bool findItemInShelf(int idItem)
+        public bool findItemInShelf(Guid idItem)
         {
             foreach (CItem item in items)
             {
-                if (item.Id == idItem)
+                if (item.Id==idItem)
                     return true;
 
             }

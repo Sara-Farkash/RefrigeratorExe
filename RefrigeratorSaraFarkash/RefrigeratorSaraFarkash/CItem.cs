@@ -10,15 +10,8 @@ namespace RefrigeratorSaraFarkash
     internal class CItem:IComparable<CItem>
     {
 
-        private static int countObj = 0;
-        private int id;
+        public Guid Id { get; private set; }
 
-        public int Id
-        {
-            get { return id; }
-            //set { id = countObj; }
-
-        }
         private string name;
 
         public string Name
@@ -33,18 +26,19 @@ namespace RefrigeratorSaraFarkash
             }
         }
 
-        private int idShelf;
+        private Guid idShelf;
 
-        public int IdShelf
+        public Guid IdShelf
         {
-            get { return idShelf; }
-            set
-            {
-                if (value >= 0)
-                    idShelf = value;
-                else
-                    throw new ArithmeticException("Illegal idShelf, idShelf must be int");
-            }
+            get;
+            set;
+          //  {
+                
+                //if (value >= 0)
+                //    idShelf = value;
+                //else
+                //    throw new ArithmeticException("Illegal idShelf, idShelf must be int");
+           // }
         }
 
         private string typeI;
@@ -107,11 +101,11 @@ namespace RefrigeratorSaraFarkash
         }
         public CItem()
         {
-            id = countObj++;
+            Id = Guid.NewGuid();
         }
         public override string ToString()
         {
-            return $"idItem: {id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {typeI}";
+            return $"idItem: {Id}, kashroo: {kashroot},expiryDate: {expiryDate},takeSpace: {takeSpace}, name : {name}, type: {typeI}";
         }
 
         public int CompareTo(CItem otherItem)

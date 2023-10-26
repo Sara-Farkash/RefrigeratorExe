@@ -10,15 +10,8 @@ namespace RefrigeratorSaraFarkash
 {
     class CRefrigerator : IComparable<CRefrigerator>
     {
-        private static int countObj = 0;
-
-        private int id;
-
-        public int Id
-        {
-            get { return id; }
-            //set { id = countObj++; }
-        }
+   
+        public Guid Id { get; private set; }
 
         private string model;
 
@@ -67,22 +60,12 @@ namespace RefrigeratorSaraFarkash
 
         {
             get { return shelfs; }
-            //set
-            //{
-            //    if (!(value is null))
-            //    {
-            //        shelfs = value;
-            //    }
-            //    else
-            //    {
-            //        shelfs = new List<CShelf>();
-            //    }
-            //}
+           
         }
 
         public CRefrigerator()
         {
-            id = countObj++;
+            Id = Guid.NewGuid();
             shelfs = new List<CShelf>();
         }
 
@@ -160,7 +143,7 @@ namespace RefrigeratorSaraFarkash
         }
 
         //4
-        public CItem removeItemFromRef(int idItem)
+        public CItem removeItemFromRef(Guid idItem)
         {
             CItem itemRemove;
             for (int i = 0; i < this.numberOfShelves; i++)

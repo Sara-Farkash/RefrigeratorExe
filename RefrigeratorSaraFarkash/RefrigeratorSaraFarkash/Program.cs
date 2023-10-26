@@ -247,8 +247,8 @@ namespace exeRefreg
                         break;
                     case 4:
                         Console.WriteLine("Enter the ID of the item to remove:");
-                        int idToRemove = int.Parse(Console.ReadLine());
-                        CItem itemWantOut = refrigerator.removeItemFromRef(idToRemove);
+                       // Guid idToRemove = Console.ReadLine();
+                       // CItem itemWantOut = refrigerator.removeItemFromRef(idToRemove);
                         break;
                     case 5:
                         refrigerator.cleanExpired();
